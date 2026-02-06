@@ -20,17 +20,19 @@ onMounted(async () => {
       const projects = gsap.utils.toArray('.project-card');
 
       projects.forEach((card: any) => {
-        gsap.to(card.querySelector('.project-img'), {
-          scrollTrigger: {
-            trigger: card,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true
-          },
-          y: "20%",
-          scale: 1.1,
-          ease: "none"
-        });
+        gsap.fromTo(card.querySelector('.project-img'),
+          { y: "-10%" },
+          {
+            scrollTrigger: {
+              trigger: card,
+              start: "top bottom",
+              end: "bottom top",
+              scrub: true
+            },
+            y: "10%",
+            ease: "none"
+          }
+        );
       });
 
     }, containerRef.value || undefined);
@@ -60,7 +62,7 @@ onUnmounted(() => {
             class="absolute inset-0 bg-brand-accent/10 z-10 mix-blend-overlay opacity-0 group-hover:opacity-100 transition-opacity duration-500">
           </div>
           <img :src="getDirectImageUrl(project.cover_image || project.image)" :alt="project.title"
-            class="project-img w-full h-[120%] object-cover object-center filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700" />
+            class="project-img absolute top-0 left-0 w-full h-[120%] object-cover object-center filter grayscale contrast-125 group-hover:grayscale-0 transition-all duration-700" />
         </div>
 
         <!-- Content Area -->

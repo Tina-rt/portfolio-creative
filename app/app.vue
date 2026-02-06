@@ -9,6 +9,54 @@ const splashComplete = ref(false);
 provide('portfolioData', portfolioData);
 provide('portfolioLoading', loading);
 
+// Dynamic SEO
+useSeoMeta({
+  title: () => `${portfolioData.value.name} | ${portfolioData.value.role}`,
+  ogTitle: () => `${portfolioData.value.name} | ${portfolioData.value.role}`,
+  description: () => portfolioData.value.summary,
+  ogDescription: () => portfolioData.value.summary,
+  ogImage: 'https://picsum.photos/1200/630?grayscale', // Update with actual OG image if available
+  twitterCard: 'summary_large_image',
+  ogType: 'website',
+  ogLocale: 'en_US',
+  author: () => portfolioData.value.name,
+  keywords: () => `fullstack developer, software engineer, ${portfolioData.value.name}, portfolio, web development, typescript, vue.js, nuxt.js`,
+});
+
+useHead({
+  htmlAttrs: {
+    lang: 'en'
+  },
+  link: [
+    { rel: 'icon', type: 'image/png', href: '/favicon.png' }
+  ],
+  script: [
+    {
+      type: 'application/ld+json',
+      children: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        name: portfolioData.value.name,
+        jobTitle: portfolioData.value.role,
+        url: portfolioData.value.site,
+        email: portfolioData.value.email,
+        description: portfolioData.value.summary,
+        address: {
+          '@type': 'PostalAddress',
+          addressLocality: portfolioData.value.location.split(',')[0].trim(),
+          addressCountry: portfolioData.value.location.split(',')[1]?.trim() || '',
+        },
+        sameAs: [
+          portfolioData.value.socials.github,
+          portfolioData.value.socials.linkedin,
+          portfolioData.value.socials.twitter,
+          portfolioData.value.socials.instagram,
+        ].filter(Boolean)
+      })
+    }
+  ]
+});
+
 onMounted(async () => {
   console.log("Portfolio Loaded: Brutalist Engine Active - Nuxt Edition");
 

@@ -6,14 +6,8 @@ export default defineNuxtConfig({
   css: ["~/assets/css/main.css"],
   app: {
     head: {
-      title: "Tina Hubert | Fullstack Engineer",
-      meta: [
-        {
-          name: "description",
-          content:
-            "Portfolio of Tina Hubert RATOLOJANAHARY - Fullstack Engineer",
-        },
-      ],
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
       link: [
         { rel: "preconnect", href: "https://fonts.googleapis.com" },
         {
