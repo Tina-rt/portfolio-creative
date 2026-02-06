@@ -39,17 +39,23 @@ onMounted(async () => {
       });
 
       // Skills categories reveal
-      gsap.from(".skill-category", {
-        scrollTrigger: {
-          trigger: skillsSectionRef.value,
-          start: "top 80%",
-        },
-        y: 60,
-        opacity: 0,
-        stagger: 0.2,
-        duration: 1,
-        ease: "power4.out"
+      const categories = gsap.utils.toArray('.skill-category');
+      categories.forEach((cat: any) => {
+        gsap.from(cat, {
+          scrollTrigger: {
+            trigger: cat,
+            start: "top 85%",
+            toggleActions: "play none none reverse"
+          },
+          y: 60,
+          opacity: 0,
+          duration: 1,
+          ease: "power4.out"
+        });
       });
+
+      // Refresh ScrollTrigger once everything is set up
+      ScrollTrigger.refresh();
     });
   }
 });

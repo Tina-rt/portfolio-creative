@@ -17,17 +17,22 @@ onMounted(async () => {
 
         ctx = gsap.context(() => {
             // Awards reveal
-            gsap.from(".award-item", {
-                scrollTrigger: {
-                    trigger: awardRef.value,
-                    start: "top 85%",
-                },
-                y: 50,
-                opacity: 0,
-                stagger: 0.2,
-                duration: 0.8,
-                ease: "power2.out"
+            const awards = gsap.utils.toArray('.award-item');
+            awards.forEach((award: any) => {
+                gsap.from(award, {
+                    scrollTrigger: {
+                        trigger: award,
+                        start: "top 90%",
+                        toggleActions: "play none none reverse"
+                    },
+                    y: 50,
+                    opacity: 0,
+                    duration: 0.8,
+                    ease: "power2.out"
+                });
             });
+
+            ScrollTrigger.refresh();
         });
     }
 });
@@ -66,7 +71,7 @@ onUnmounted(() => {
                                 {{ award.place }}
                             </span>
                             <span class="text-gray-500 font-mono text-sm uppercase tracking-widest">{{ award.date
-                                }}</span>
+                            }}</span>
                         </div>
                     </div>
 

@@ -68,8 +68,17 @@ onMounted(async () => {
   }
 
   // Wait a bit before hiding splash to ensure smooth transition
-  setTimeout(() => {
+  setTimeout(async () => {
     showSplash.value = false;
+
+    // Ensure all components are mounted and images are potentially loading
+    if (process.client) {
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      // Multiple refreshes to catch lazy loaded content
+      setTimeout(() => ScrollTrigger.refresh(), 100);
+      setTimeout(() => ScrollTrigger.refresh(), 500);
+      setTimeout(() => ScrollTrigger.refresh(), 1500);
+    }
   }, 1000);
 });
 
@@ -87,7 +96,7 @@ const handleSplashComplete = () => {
     </ClientOnly>
 
     <!-- Main Content -->
-    <div v-show="!showSplash && !loading"
+    <div v-if="!showSplash && !loading"
       class="relative min-h-screen bg-brand-black text-brand-light selection:bg-brand-accent selection:text-black">
       <!-- Noise Overlay -->
       <div class="fixed inset-0 z-[50] pointer-events-none opacity-20 mix-blend-overlay bg-noise"></div>
