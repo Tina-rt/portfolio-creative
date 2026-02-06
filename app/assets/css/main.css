@@ -1,0 +1,39 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #050505;
+  color: #e0e0e0;
+  cursor: none; /* Custom cursor */
+  overflow-x: hidden;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Hide scrollbar but keep functionality */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #050505;
+}
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+.outline-text {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.682);
+  color: transparent;
+  transition: all 0.5s ease;
+}
+.outline-text:hover {
+  -webkit-text-stroke: 1px #ccff00;
+  color: transparent;
+}
+
+.clip-text-image {
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
